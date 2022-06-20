@@ -1,11 +1,16 @@
-package sdb.server.auth.serviceImpl;
+package sdb.server.auth.impl;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import sdb.server.auth.config.UserMapper;
+import sdb.server.auth.contracts.AddRoleToUserService;
+import sdb.server.auth.contracts.CreateRoleService;
+import sdb.server.auth.contracts.CreateUserService;
+import sdb.server.auth.contracts.UserAppService;
 import sdb.server.auth.dto.RoleCreateRequest;
 import sdb.server.auth.dto.RoleResponse;
 import sdb.server.auth.dto.UserCreateRequest;
@@ -14,14 +19,12 @@ import sdb.server.auth.entities.AppUser;
 import sdb.server.auth.entities.Role;
 import sdb.server.auth.exceptions.RoleAlreadyExistsException;
 import sdb.server.auth.exceptions.UserAlreadyExistsException;
-import sdb.server.auth.services.CreateRoleService;
-import sdb.server.auth.services.CreateUserService;
-import sdb.server.auth.services.UserAppService;
 
-@Service @RequiredArgsConstructor
+@Service @RequiredArgsConstructor 
 public class UserAppServiceImpl implements UserAppService {
     private final CreateUserService createUserService;
     private final CreateRoleService createRoleService;
+    private final AddRoleToUserService addRoleToUserService;
 
     private final UserMapper mapper;
 
@@ -51,8 +54,11 @@ public class UserAppServiceImpl implements UserAppService {
 
     @Override
     public void addRoleToUser(String username, String roleName) {
-        // TODO Auto-generated method stub
-        
+        try{
+            addRoleToUserService.addRoleToUser(username, roleName);
+        } catch(RuntimeException e){
+            throw e;
+        }
     }
 
     @Override

@@ -1,14 +1,17 @@
-package sdb.server.auth.serviceImpl;
+package sdb.server.auth.impl;
+
+import javax.transaction.Transactional;
+import javax.transaction.Transactional.TxType;
 
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
+import sdb.server.auth.contracts.CreateUserService;
+import sdb.server.auth.contracts.UserPersistenceService;
 import sdb.server.auth.entities.AppUser;
 import sdb.server.auth.exceptions.UserAlreadyExistsException;
-import sdb.server.auth.services.CreateUserService;
-import sdb.server.auth.services.UserPersistenceService;
 
-@Service @RequiredArgsConstructor
+@Service @RequiredArgsConstructor @Transactional(value = TxType.REQUIRES_NEW)
 public class CreateUserServiceImpl implements CreateUserService {
     private final UserPersistenceService userPersistenceService;
 

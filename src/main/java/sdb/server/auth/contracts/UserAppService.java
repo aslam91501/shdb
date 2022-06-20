@@ -1,4 +1,4 @@
-package sdb.server.auth.services;
+package sdb.server.auth.contracts;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

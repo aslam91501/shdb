@@ -1,4 +1,4 @@
-package sdb.server.auth.services;
+package sdb.server.auth.contracts;
 
 import sdb.server.auth.entities.AppUser;
 

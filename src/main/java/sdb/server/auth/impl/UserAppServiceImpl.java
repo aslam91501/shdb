@@ -5,11 +5,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import sdb.server.auth.config.UserMapper;
 import sdb.server.auth.contracts.AddRoleToUserService;
 import sdb.server.auth.contracts.CreateRoleService;
 import sdb.server.auth.contracts.CreateUserService;
+import sdb.server.auth.contracts.GetUserService;
 import sdb.server.auth.contracts.UserAppService;
 import sdb.server.auth.dto.RoleCreateRequest;
 import sdb.server.auth.dto.RoleResponse;
@@ -25,6 +25,7 @@ public class UserAppServiceImpl implements UserAppService {
     private final CreateUserService createUserService;
     private final CreateRoleService createRoleService;
     private final AddRoleToUserService addRoleToUserService;
+    private final GetUserService getUserService;
 
     private final UserMapper mapper;
 
@@ -63,13 +64,19 @@ public class UserAppServiceImpl implements UserAppService {
 
     @Override
     public UserResponse getUser(String username) {
-        // TODO Auto-generated method stub
-        return null;
+        AppUser user = getUserService.getUser(username);
+
+        return mapper.appUserToUserResponse(user);
     }
 
     @Override
     public Page<UserResponse> getUsers(Pageable pageable) {
-        // TODO Auto-generated method stub
-        return null;
+        Page<AppUser> usersPaged = getUserService.getUsersPaged(pageable);
+
+        System.out.println(usersPaged);
+
+        Page<UserResponse> userResponsePaged = usersPaged.map(mapper::appUserToUserResponse);
+
+        return userResponsePaged;
     }
 }

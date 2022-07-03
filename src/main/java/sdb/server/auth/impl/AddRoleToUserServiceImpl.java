@@ -1,5 +1,8 @@
 package sdb.server.auth.impl;
 
+import javax.transaction.Transactional;
+import javax.transaction.Transactional.TxType;
+
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -11,7 +14,7 @@ import sdb.server.auth.entities.Role;
 import sdb.server.auth.exceptions.RoleDoesNotExistException;
 import sdb.server.auth.exceptions.UserDoesNotExistException;
 
-@Service @RequiredArgsConstructor
+@Service @RequiredArgsConstructor @Transactional(value = TxType.REQUIRES_NEW)
 public class AddRoleToUserServiceImpl implements AddRoleToUserService {
     private final UserPersistenceService userPersistenceService;
     private final RolePersistenceService rolePersistenceService;

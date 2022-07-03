@@ -1,5 +1,7 @@
 package sdb.server.auth.impl;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -19,6 +21,11 @@ public class UserPersistenceServiceImpl implements UserPersistenceService{
     @Override
     public AppUser findByUserName(String username) {
         return userRepository.findByUsername(username);
+    }
+
+    @Override
+    public Page<AppUser> getUsers(Pageable pageable) {
+        return userRepository.findAll(pageable);
     }
     
 }

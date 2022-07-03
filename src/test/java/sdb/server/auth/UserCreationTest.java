@@ -21,7 +21,7 @@ import sdb.server.auth.repo.UserRepository;
 @AutoConfigureMockMvc
 public class UserCreationTest {
     @Autowired private MockMvc mockMvc;
-    @Autowired private UserRepository userRepository;
+    // @Autowired private UserRepository userRepository;
 
     @Test
     public void WhenUserCreateRequestSend_ShouldReturnResponse() throws Exception{

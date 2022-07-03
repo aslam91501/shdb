@@ -5,8 +5,7 @@ import org.springframework.data.domain.Pageable;
 
 import sdb.server.auth.entities.AppUser;
 
-public interface UserPersistenceService {
-    AppUser saveUser(AppUser user);
-    AppUser findByUserName(String username);
-    Page<AppUser> getUsers(Pageable pageable);
+public interface GetUserService {
+    AppUser getUser(String username);
+    Page<AppUser> getUsersPaged(Pageable pageable);
 }

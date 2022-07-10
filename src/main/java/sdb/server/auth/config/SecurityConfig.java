@@ -11,6 +11,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import lombok.RequiredArgsConstructor;
 
@@ -32,9 +35,10 @@ public class SecurityConfig {
         "/v3/api-docs/**",
         "/swagger-ui/**",
         // other public endpoints of your API may be appended to this array
+        "/api/auth/login/**", "/api/auth/token/refresh/**",
 
-        "/api/auth/user/new",
-        "/api/auth/login/**", "/api/auth/token/refresh/**"
+        // TODO: Remove this
+        "/api/**"
 };
 
     @Bean
@@ -42,12 +46,13 @@ public class SecurityConfig {
         JwtAuthenticationFilter filter = new JwtAuthenticationFilter(authenticationManagerBean());
         filter.setFilterProcessesUrl("/api/auth/login");
 
-        http.csrf().disable();
+        http.cors();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.authorizeRequests().antMatchers(AUTH_WHITELIST).permitAll();
         http.authorizeRequests().anyRequest().authenticated();
         http.addFilter(filter);
         http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
+        http.csrf().disable();
 
         return http.build(); 
     }
@@ -60,5 +65,13 @@ public class SecurityConfig {
     @Bean
     public AuthenticationManager authenticationManagerBean() throws Exception{
         return authenticationConfiguration.getAuthenticationManager();
+    }
+
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        UrlBasedCorsConfigurationSource source = new
+                UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
+        return source;
     }
 }

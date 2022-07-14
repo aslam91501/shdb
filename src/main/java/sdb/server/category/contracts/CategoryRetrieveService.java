@@ -5,10 +5,11 @@ import org.springframework.data.domain.Pageable;
 
 import sdb.server.category.Category;
 
-public interface CategoryPersistenceService {
-    Category save(Category category);
+public interface CategoryRetrieveService {
+
     Category getByName(String name);
+
     Page<Category> getAll(Pageable pageable);
-    Category getById(Long id);
-    void delete(Long id);
+
+    
 }

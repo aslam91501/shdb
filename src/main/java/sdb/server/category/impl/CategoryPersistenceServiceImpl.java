@@ -1,5 +1,9 @@
 package sdb.server.category.impl;
 
+import java.util.Optional;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -19,5 +23,24 @@ public class CategoryPersistenceServiceImpl implements CategoryPersistenceServic
     @Override
     public Category getByName(String name) {
         return categoryRepository.findByName(name);
+    }
+
+    @Override
+    public Page<Category> getAll(Pageable pageable) {
+        return categoryRepository.findAll(pageable);
+    }
+
+    @Override
+    public Category getById(Long id) {
+        Optional<Category> categoryOptional = categoryRepository.findById(id);
+        
+        if(categoryOptional.isPresent())
+            return categoryOptional.get();
+        else return null;
+    }
+
+    @Override
+    public void delete(Long id) {
+        categoryRepository.deleteById(id);
     }
 }

@@ -15,7 +15,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import sdb.server.auth.dto.UserCreateRequest;
 import sdb.server.auth.dto.UserResponse;
-import sdb.server.auth.repo.UserRepository;
 
 @SpringBootTest
 @AutoConfigureMockMvc

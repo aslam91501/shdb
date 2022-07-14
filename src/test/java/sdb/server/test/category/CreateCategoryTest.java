@@ -1,7 +1,6 @@
 package sdb.server.test.category;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +19,6 @@ import sdb.server.category.contracts.CategoryCreateService;
 import sdb.server.category.contracts.CategoryPersistenceService;
 import sdb.server.category.dto.CategoryCreateRequest;
 import sdb.server.category.dto.CategoryResponse;
-import sdb.server.category.exceptions.CategoryAlreadyExistsException;
 
 @SpringBootTest
 @AutoConfigureMockMvc 

@@ -1,6 +1,13 @@
 package sdb.server.auth.controllers;
 
-import javax.management.RuntimeErrorException;
+import static org.springframework.http.HttpHeaders.AUTHORIZATION;
+
+import java.io.IOException;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -10,7 +17,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,18 +41,6 @@ import sdb.server.auth.dto.RoleCreateRequest;
 import sdb.server.auth.dto.RoleResponse;
 import sdb.server.auth.dto.UserCreateRequest;
 import sdb.server.auth.dto.UserResponse;
-import sdb.server.auth.entities.AppUser;
-import sdb.server.auth.entities.Role;
-
-import static org.springframework.http.HttpHeaders.AUTHORIZATION;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 
 @RestController @RequestMapping("api/auth") @RequiredArgsConstructor

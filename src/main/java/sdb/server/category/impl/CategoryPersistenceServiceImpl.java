@@ -1,5 +1,6 @@
 package sdb.server.category.impl;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -42,5 +43,10 @@ public class CategoryPersistenceServiceImpl implements CategoryPersistenceServic
     @Override
     public void delete(Long id) {
         categoryRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Category> saveAll(List<Category> categories) {
+        return categoryRepository.saveAll(categories);
     }
 }

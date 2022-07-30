@@ -1,6 +1,10 @@
 package sdb.server.category.contracts;
 
+import java.util.List;
+
 import javax.validation.Valid;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import sdb.server.category.dto.CategoryCreateRequest;
 import sdb.server.category.dto.CategoryPagedResponse;
@@ -15,5 +19,7 @@ public interface CategoryAppService {
     CategoryPagedResponse getAll(int page, int size);
 
     void delete(Long id);
+
+    List<CategoryResponse> importExcel(MultipartFile files);
     
 }
